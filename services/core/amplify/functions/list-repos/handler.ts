@@ -47,13 +47,22 @@ export const handler = async () => {
 
   let repos: RepoSummary[]
   if (allowlist.length > 0) {
-    repos = await Promise.all(
+    // Skip allowlisted repos the App can't currently reach (e.g. a grant
+    // pending org approval) instead of failing the whole picker; they show
+    // up automatically once access is granted.
+    const results = await Promise.all(
       allowlist.map(async (fullName) => {
-        const token = await getTokenForRepo(fullName)
-        const { data } = await githubRequest<RepoSummary>(`/repos/${fullName}`, { token })
-        return data
+        try {
+          const token = await getTokenForRepo(fullName)
+          const { data } = await githubRequest<RepoSummary>(`/repos/${fullName}`, { token })
+          return data
+        } catch (error) {
+          console.error(`skipping ${fullName}:`, error)
+          return null
+        }
       }),
     )
+    repos = results.filter((repo): repo is RepoSummary => repo !== null)
   } else {
     if (isTokenMode()) {
       throw new Error('GITHUB_REPOS must be set when using a PAT instead of a GitHub App.')
