@@ -20,6 +20,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <head>
         <link rel="preconnect" href="https://rsms.me/" />
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+        {/* Apply the persisted color theme before first paint (same pattern as blueprint). */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem('report-color-theme')||'damon';document.documentElement.classList.add('theme-'+t)}catch(e){}`,
+          }}
+        />
       </head>
       <body className="min-h-svh font-sans">
         <ConfigureAmplifyClientSide />

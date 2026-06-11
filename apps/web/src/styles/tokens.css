@@ -1,0 +1,89 @@
+/* ── Base design tokens (draughtsman/blueprint defaults) ──
+   A .theme-<name> class on <html> (see styles/themes/) overrides these;
+   the default app theme is applied by the inline script in the root layout. */
+
+:root {
+  /* Native widgets (select popups, scrollbars, autofill) follow the theme */
+  color-scheme: light;
+
+  /* Primary palette */
+  --color-primary-50: hsl(214 52% 97%);
+  --color-primary-100: hsl(214 52% 94%);
+  --color-primary-200: hsl(214 52% 86%);
+  --color-primary-300: hsl(214 52% 76%);
+  --color-primary-400: hsl(214 52% 64%);
+  --color-primary-500: hsl(214 52% 50%);
+  --color-primary-600: hsl(214 52% 42%);
+  --color-primary-700: hsl(214 52% 34%);
+  --color-primary-800: hsl(214 52% 26%);
+  --color-primary-900: hsl(214 52% 20%);
+  --color-primary-950: hsl(214 52% 12%);
+
+  /* Neutral palette (warm) */
+  --color-neutral-50: hsl(39 20% 97%);
+  --color-neutral-100: hsl(39 18% 94%);
+  --color-neutral-200: hsl(39 16% 86%);
+  --color-neutral-300: hsl(39 14% 76%);
+  --color-neutral-400: hsl(39 12% 64%);
+  --color-neutral-500: hsl(39 10% 50%);
+  --color-neutral-600: hsl(39 10% 42%);
+  --color-neutral-700: hsl(39 10% 34%);
+  --color-neutral-800: hsl(39 10% 26%);
+  --color-neutral-900: hsl(39 10% 20%);
+  --color-neutral-950: hsl(39 10% 12%);
+
+  /* Semantic tokens — light mode */
+  --surface-base: hsl(0 0% 100%);
+  --surface-raised: hsl(0 0% 98%);
+  --surface-overlay: hsl(0 0% 100%);
+  --surface-sunken: hsl(0 0% 94%);
+  --surface-disabled: hsl(0 0% 96%);
+  --border-default: hsl(0 0% 88%);
+  --border-subtle: hsl(0 0% 93%);
+  --border-strong: hsl(0 0% 65%);
+  --border-focus: var(--color-primary-500);
+  --border-error: #d64545;
+  --text-primary: hsl(0 0% 9%);
+  --text-secondary: hsl(0 0% 32%);
+  --text-tertiary: hsl(0 0% 55%);
+  --text-disabled: hsl(0 0% 75%);
+  --text-inverse: hsl(0 0% 100%);
+  --text-link: var(--color-primary-600);
+  --text-on-primary: hsl(0 0% 100%);
+  --text-on-danger: hsl(0 0% 100%);
+}
+
+.dark {
+  color-scheme: dark;
+
+  --color-primary-50: hsl(214 42% 97%);
+  --color-primary-100: hsl(214 42% 94%);
+  --color-primary-200: hsl(214 42% 86%);
+  --color-primary-300: hsl(214 42% 76%);
+  --color-primary-400: hsl(214 42% 64%);
+  --color-primary-500: hsl(214 42% 50%);
+  --color-primary-600: hsl(214 42% 42%);
+  --color-primary-700: hsl(214 42% 34%);
+  --color-primary-800: hsl(214 42% 26%);
+  --color-primary-900: hsl(214 42% 20%);
+  --color-primary-950: hsl(214 42% 12%);
+
+  --surface-base: hsl(0 0% 7%);
+  --surface-raised: hsl(0 0% 11%);
+  --surface-overlay: hsl(0 0% 14%);
+  --surface-sunken: hsl(0 0% 5%);
+  --surface-disabled: hsl(0 0% 11%);
+  --border-default: hsl(0 0% 22%);
+  --border-subtle: hsl(0 0% 17%);
+  --border-strong: hsl(0 0% 40%);
+  --border-focus: var(--color-primary-400);
+  --border-error: #e66a6a;
+  --text-primary: hsl(0 0% 95%);
+  --text-secondary: hsl(0 0% 72%);
+  --text-tertiary: hsl(0 0% 50%);
+  --text-disabled: hsl(0 0% 35%);
+  --text-inverse: hsl(0 0% 9%);
+  --text-link: var(--color-primary-300);
+  --text-on-primary: hsl(0 0% 100%);
+  --text-on-danger: hsl(0 0% 100%);
+}

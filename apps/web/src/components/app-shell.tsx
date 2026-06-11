@@ -7,6 +7,7 @@ import {
   ArrowRightStartOnRectangleIcon,
   Bars3Icon,
   BugAntIcon,
+  CheckIcon,
   ListBulletIcon,
   MoonIcon,
   PencilSquareIcon,
@@ -20,6 +21,7 @@ import { useTheme } from 'next-themes'
 
 import { Link } from '@/components/ui/link'
 import { useAuth } from '@/contexts/auth-context'
+import { useColorTheme } from '@/lib/color-theme'
 
 const navigation = [
   { href: '/', label: 'New report', icon: PencilSquareIcon },
@@ -102,15 +104,15 @@ function SidebarFooter() {
         </span>
       </div>
       <div className="flex items-center gap-1">
+        <PalettePicker />
         <button
           type="button"
           onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
           className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-medium text-content-secondary transition hover:bg-neutral-950/5 dark:hover:bg-white/5"
-          aria-label="Toggle theme"
+          aria-label="Toggle light or dark mode"
         >
           <SunIcon className="size-4 dark:hidden" />
           <MoonIcon className="hidden size-4 dark:block" />
-          Theme
         </button>
         <button
           type="button"
@@ -122,6 +124,58 @@ function SidebarFooter() {
         </button>
       </div>
     </div>
+  )
+}
+
+function PalettePicker() {
+  const { colorTheme, setColorTheme, themes } = useColorTheme()
+  const active = themes.find((theme) => theme.name === colorTheme)
+
+  return (
+    <Headless.Menu>
+      <Headless.MenuButton className="flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs font-medium text-content-secondary transition data-hover:bg-neutral-950/5 dark:data-hover:bg-white/5">
+        <span
+          className="size-3.5 rounded-full border border-neutral-950/20 dark:border-white/20"
+          style={{ backgroundColor: active?.primarySwatch }}
+        />
+        {active?.label ?? 'Theme'}
+      </Headless.MenuButton>
+      <Headless.MenuItems
+        anchor="top start"
+        transition
+        className="z-50 mb-2 w-56 origin-bottom-left rounded-xl border border-border-subtle bg-surface-overlay p-1 shadow-lg transition duration-100 ease-out [--anchor-gap:--spacing(1)] focus:outline-hidden data-closed:scale-95 data-closed:opacity-0"
+      >
+        {themes.map((theme) => (
+          <Headless.MenuItem key={theme.name}>
+            <button
+              type="button"
+              onClick={() => setColorTheme(theme.name)}
+              className="flex w-full items-center gap-2.5 rounded-lg px-2.5 py-2 text-left text-sm text-content-primary data-focus:bg-neutral-950/5 dark:data-focus:bg-white/10"
+            >
+              <span className="flex -space-x-1">
+                <span
+                  className="size-4 rounded-full border border-neutral-950/20 dark:border-white/20"
+                  style={{ backgroundColor: theme.primarySwatch }}
+                />
+                <span
+                  className="size-4 rounded-full border border-neutral-950/20 dark:border-white/20"
+                  style={{ backgroundColor: theme.neutralSwatch }}
+                />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-sm/5 font-medium">{theme.label}</span>
+                <span className="block truncate text-xs text-content-tertiary">
+                  {theme.description}
+                </span>
+              </span>
+              {theme.name === colorTheme ? (
+                <CheckIcon className="size-4 shrink-0 text-primary-600 dark:text-primary-400" />
+              ) : null}
+            </button>
+          </Headless.MenuItem>
+        ))}
+      </Headless.MenuItems>
+    </Headless.Menu>
   )
 }
 
