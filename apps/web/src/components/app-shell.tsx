@@ -35,7 +35,7 @@ function Brand() {
         <BugAntIcon className="size-5 text-white" />
       </span>
       <span className="min-w-0">
-        <span className="block truncate text-sm font-semibold text-content-primary">Mintable</span>
+        <span className="block truncate text-sm font-semibold text-content-primary">Damon</span>
         <span className="block truncate text-xs text-content-tertiary">Bug Reports</span>
       </span>
     </div>

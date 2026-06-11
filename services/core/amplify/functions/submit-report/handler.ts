@@ -68,7 +68,7 @@ function buildIssueBody(
     })
   }
 
-  sections.push('', '---', '_Filed via the Mintable tester report portal._')
+  sections.push('', '---', '_Filed via the Damon bug report portal._')
   return sections.join('\n')
 }
 

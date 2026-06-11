@@ -6,8 +6,8 @@ import { Providers } from './providers'
 import '@/styles/tailwind.css'
 
 export const metadata: Metadata = {
-  title: 'Mintable Bug Reports',
-  description: 'Report bugs and issues to the development team',
+  title: 'Damon Bug Reports',
+  description: 'Report bugs and issues to the Damon development team',
 }
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {

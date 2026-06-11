@@ -35,7 +35,7 @@ packages/style-guide  Shared TypeScript configs
 ### 1. GitHub App (~15 min)
 
 1. GitHub org → **Settings → Developer settings → GitHub Apps → New GitHub App**.
-   - Name: `Mintable Bug Reports`; any homepage URL; **disable webhooks**.
+   - Name: `damon-bug-reports` (the bot identity on issues); any homepage URL; **disable webhooks**.
    - Repository permissions: **Issues: Read and write**, **Metadata: Read-only**.
 2. Create the app, note the **App ID**, and generate a **private key** (`.pem`).
 3. **Install App** on the repos testers should report against

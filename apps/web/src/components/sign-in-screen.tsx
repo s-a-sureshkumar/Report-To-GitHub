@@ -47,7 +47,7 @@ export function SignInScreen() {
           <BugAntIcon className="size-6 text-white" />
         </span>
         <h1 className="mt-5 text-xl font-semibold tracking-tight text-content-primary">
-          Mintable Bug Reports
+          Damon Bug Reports
         </h1>
         <Text className="mt-2">
           Report bugs and issues straight to the development team. Sign in with your{' '}
