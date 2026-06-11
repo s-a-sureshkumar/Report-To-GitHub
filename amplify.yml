@@ -28,17 +28,20 @@ applications:
           commands:
             - corepack enable
             - pnpm install --frozen-lockfile
-            - pnpm exec ampx generate outputs --branch $AWS_BRANCH --app-id $CORE_APP_ID --out-dir ../../services/core
+            - pnpm exec ampx generate outputs --branch $AWS_BRANCH --app-id $CORE_APP_ID --out-dir ./services/core
     frontend:
       phases:
         build:
           commands:
             - pnpm exec turbo run build --filter=web
       artifacts:
-        baseDirectory: .next
+        baseDirectory: apps/web/.next
         files:
           - '**/*'
       cache:
         paths:
-          - .next/cache/**/*
+          - apps/web/.next/cache/**/*
           - $(pnpm store path)
+      # Build from the repo root so the packaged compute bundle resolves
+      # pnpm's symlinked node_modules (same as draughtsman frontend apps).
+      buildPath: /
