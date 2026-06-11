@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { CheckCircleIcon, PhotoIcon, XMarkIcon } from '@heroicons/react/20/solid'
 import { motion } from 'motion/react'
@@ -9,7 +9,8 @@ import { useSubmitReport, useTargetRepos, type SubmitReportResult } from '@repor
 
 import { Button } from '@/components/ui/button'
 import { Description, ErrorMessage, Field, FieldGroup, Label } from '@/components/ui/fieldset'
-import { Input, Select, Textarea } from '@/components/ui/input'
+import { Input, Textarea } from '@/components/ui/input'
+import { Listbox, ListboxLabel, ListboxOption } from '@/components/ui/listbox'
 import { Heading, Text } from '@/components/ui/text'
 import { uploadScreenshots } from '@/lib/upload'
 
@@ -84,6 +85,23 @@ export default function NewReportPage() {
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [submitted, setSubmitted] = useState<SubmitReportResult | null>(null)
+  const [selectedRepo, setSelectedRepo] = useState('')
+  const [selectedSeverity, setSelectedSeverity] = useState('medium')
+
+  useEffect(() => {
+    const nextRepos = repos ?? []
+
+    if (nextRepos.length === 0) {
+      if (selectedRepo) {
+        setSelectedRepo('')
+      }
+      return
+    }
+
+    if (!nextRepos.some((repo) => repo.fullName === selectedRepo)) {
+      setSelectedRepo(nextRepos[0].fullName)
+    }
+  }, [repos, selectedRepo])
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -105,6 +123,8 @@ export default function NewReportPage() {
       setSubmitted(result)
       formRef.current?.reset()
       setFiles([])
+      setSelectedRepo((repos ?? [])[0]?.fullName ?? '')
+      setSelectedSeverity('medium')
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
     } finally {
@@ -163,27 +183,32 @@ export default function NewReportPage() {
           <div className="grid gap-8 sm:grid-cols-2 sm:gap-4">
             <Field>
               <Label>Application</Label>
-              <Select name="repo" required disabled={reposLoading}>
-                {reposLoading ? <option value="">Loading…</option> : null}
+              <Listbox
+                name="repo"
+                value={selectedRepo}
+                onChange={setSelectedRepo}
+                disabled={reposLoading || (repos ?? []).length === 0}
+                placeholder={reposLoading ? 'Loading…' : 'No applications available'}
+              >
                 {(repos ?? []).map((repo) => (
-                  <option key={repo.fullName} value={repo.fullName}>
-                    {repo.name}
-                  </option>
+                  <ListboxOption key={repo.fullName} value={repo.fullName}>
+                    <ListboxLabel>{repo.name}</ListboxLabel>
+                  </ListboxOption>
                 ))}
-              </Select>
+              </Listbox>
               {reposError ? (
                 <ErrorMessage>Could not load the application list.</ErrorMessage>
               ) : null}
             </Field>
             <Field>
               <Label>Severity</Label>
-              <Select name="severity" defaultValue="medium" required>
+              <Listbox name="severity" value={selectedSeverity} onChange={setSelectedSeverity}>
                 {severities.map((severity) => (
-                  <option key={severity.value} value={severity.value}>
-                    {severity.label}
-                  </option>
+                  <ListboxOption key={severity.value} value={severity.value}>
+                    <ListboxLabel>{severity.label}</ListboxLabel>
+                  </ListboxOption>
                 ))}
-              </Select>
+              </Listbox>
             </Field>
           </div>
 
@@ -235,7 +260,7 @@ export default function NewReportPage() {
           ) : null}
 
           <div>
-            <Button type="submit" disabled={submitting || reposLoading}>
+            <Button type="submit" disabled={submitting || reposLoading || !selectedRepo}>
               {submitting ? (
                 <>
                   <span

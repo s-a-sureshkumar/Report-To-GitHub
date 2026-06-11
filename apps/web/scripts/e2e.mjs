@@ -81,8 +81,8 @@ await page.screenshot({ path: `${SCREEN_DIR}/01-form.png`, fullPage: true })
 try {
   await page.waitForFunction(
     () => {
-      const select = document.querySelector('select[name="repo"]')
-      return select && select.options.length > 0 && select.options[0].value.includes('/')
+      const input = document.querySelector('input[name="repo"]')
+      return input && input.value.includes('/')
     },
     { timeout: 60000 },
   )
@@ -93,7 +93,8 @@ try {
 // 3. Fill and submit the form, screenshot attached.
 const title = `[E2E] Checkout button unresponsive on payment page (${new Date().toISOString()})`
 try {
-  await page.selectOption('select[name="severity"]', 'high')
+  await page.getByRole('button', { name: /Medium — feature partially broken/ }).click()
+  await page.getByRole('option', { name: /High — major feature broken/ }).click()
   await page.fill('input[name="title"]', title)
   await page.fill(
     'textarea[name="description"]',
