@@ -3,6 +3,9 @@
 /* ── Design tokens (ported from the draughtsman/blueprint design system) ── */
 
 :root {
+  /* Native widgets (select popups, scrollbars, autofill) follow the theme */
+  color-scheme: light;
+
   /* Primary palette */
   --color-primary-50: hsl(214 52% 97%);
   --color-primary-100: hsl(214 52% 94%);
@@ -51,6 +54,8 @@
 }
 
 .dark {
+  color-scheme: dark;
+
   --color-primary-50: hsl(214 42% 97%);
   --color-primary-100: hsl(214 42% 94%);
   --color-primary-200: hsl(214 42% 86%);
