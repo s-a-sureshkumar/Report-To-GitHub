@@ -19,9 +19,12 @@ packages/style-guide  Shared TypeScript configs
 1. Tester signs in with Google (Cognito federated IdP; a `preSignUp` trigger
    rejects any account that isn't on `mintable.com` — configurable in
    `services/core/amplify/auth/pre-sign-up/resource.ts`).
-2. The form's repo picker calls `listTargetRepos`, which lists the repositories
-   the GitHub App is installed on. To expose a new repo, just install the App
-   on it in GitHub — no code change.
+2. The form's repo picker calls `listTargetRepos`, which aggregates the
+   repositories across **all** of the GitHub App's installations (org and
+   personal). To expose a new repo, install the App on it (or add it to an
+   existing installation's repository list) in GitHub — no code, secret, or
+   env change. `GITHUB_REPOS` (comma-separated `owner/name`) optionally
+   narrows the picker.
 3. Screenshots upload to S3; a CloudFront distribution in front of the bucket
    makes them render inline in GitHub issue bodies. URLs are unguessable
    (UUID keys) but not authenticated — fine for bug screenshots, don't upload

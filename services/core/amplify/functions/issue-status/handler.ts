@@ -1,4 +1,4 @@
-import { getGitHubToken, githubRequest } from '../shared/github'
+import { getTokenForRepo, githubRequest } from '../shared/github'
 
 const REPO_PATTERN = /^[\w.-]+\/[\w.-]+$/
 const MAX_STATUS_REFS = 50
@@ -53,7 +53,7 @@ function parseRef(ref: string): { repo: string; issueNumber: number } | null {
 
 async function getIssueDetail(repo: string, issueNumber: number) {
   assertRepo(repo)
-  const token = await getGitHubToken()
+  const token = await getTokenForRepo(repo)
   const { data: issue } = await githubRequest<GitHubIssue>(`/repos/${repo}/issues/${issueNumber}`, {
     token,
   })
@@ -78,7 +78,6 @@ async function getIssueDetail(repo: string, issueNumber: number) {
 }
 
 async function listIssueStatuses(refs: string[]) {
-  const token = await getGitHubToken()
   const parsed = refs
     .slice(0, MAX_STATUS_REFS)
     .map((ref) => ({ ref, target: parseRef(ref) }))
@@ -90,6 +89,7 @@ async function listIssueStatuses(refs: string[]) {
   return Promise.all(
     parsed.map(async ({ ref, target }) => {
       try {
+        const token = await getTokenForRepo(target.repo)
         const { data: issue } = await githubRequest<GitHubIssue>(
           `/repos/${target.repo}/issues/${target.issueNumber}`,
           { token },

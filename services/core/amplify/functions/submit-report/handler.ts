@@ -3,7 +3,7 @@ import { randomUUID } from 'node:crypto'
 import { DynamoDBClient } from '@aws-sdk/client-dynamodb'
 import { DynamoDBDocumentClient, PutCommand } from '@aws-sdk/lib-dynamodb'
 
-import { getGitHubToken, githubRequest } from '../shared/github'
+import { getTokenForRepo, githubRequest } from '../shared/github'
 
 const SEVERITIES = ['critical', 'high', 'medium', 'low'] as const
 
@@ -95,7 +95,7 @@ export const handler = async (event: SubmitReportEvent) => {
     (key): key is string => typeof key === 'string' && key.length > 0,
   )
 
-  const token = await getGitHubToken()
+  const token = await getTokenForRepo(args.repo)
   const issuePayload = {
     title: args.title,
     body: buildIssueBody(args, reporter, screenshotKeys),
