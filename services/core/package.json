@@ -1,0 +1,26 @@
+{
+  "name": "@report/core-service",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "clean": "rm -rf node_modules && rm -rf .amplify",
+    "sandbox": "npx ampx sandbox",
+    "check-types": "tsc --noEmit"
+  },
+  "exports": {
+    "./amplify_outputs.json": "./amplify_outputs.json",
+    "./data/resource": "./amplify/data/resource.ts"
+  },
+  "devDependencies": {
+    "@aws-amplify/backend": "^1.21.1",
+    "@aws-amplify/backend-cli": "^1.8.2",
+    "@aws-sdk/client-dynamodb": "^3.1009.0",
+    "@aws-sdk/lib-dynamodb": "^3.1009.0",
+    "@report/style-guide": "workspace:*",
+    "@types/aws-lambda": "^8.10.145",
+    "@types/node": "^25",
+    "aws-cdk-lib": "2.243.0",
+    "constructs": "^10.5.1",
+    "typescript": "5.9.3"
+  }
+}

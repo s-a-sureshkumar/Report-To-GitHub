@@ -1,0 +1,360 @@
+{
+  "auth": {
+    "user_pool_id": "ap-southeast-1_ZNVywXdRJ",
+    "aws_region": "ap-southeast-1",
+    "user_pool_client_id": "7arqerhb53k27cf1l86ea5p3rm",
+    "identity_pool_id": "ap-southeast-1:53717b06-d4e4-424b-8d25-cafaa88a57cb",
+    "mfa_methods": [],
+    "standard_required_attributes": [
+      "email"
+    ],
+    "username_attributes": [
+      "email"
+    ],
+    "user_verification_types": [
+      "email"
+    ],
+    "groups": [],
+    "mfa_configuration": "NONE",
+    "password_policy": {
+      "min_length": 8,
+      "require_lowercase": true,
+      "require_numbers": true,
+      "require_symbols": true,
+      "require_uppercase": true
+    },
+    "oauth": {
+      "identity_providers": [
+        "GOOGLE"
+      ],
+      "redirect_sign_in_uri": [
+        "http://localhost:3000/"
+      ],
+      "redirect_sign_out_uri": [
+        "http://localhost:3000/"
+      ],
+      "response_type": "code",
+      "scopes": [
+        "phone",
+        "email",
+        "openid",
+        "profile",
+        "aws.cognito.signin.user.admin"
+      ],
+      "domain": "d592941998e2458348b0.auth.ap-southeast-1.amazoncognito.com"
+    },
+    "unauthenticated_identities_enabled": true
+  },
+  "data": {
+    "url": "https://e476umtcqzhjdgdsadwacadwta.appsync-api.ap-southeast-1.amazonaws.com/graphql",
+    "aws_region": "ap-southeast-1",
+    "default_authorization_type": "AMAZON_COGNITO_USER_POOLS",
+    "authorization_types": [
+      "AWS_IAM"
+    ],
+    "model_introspection": {
+      "version": 1,
+      "models": {
+        "Report": {
+          "name": "Report",
+          "fields": {
+            "id": {
+              "name": "id",
+              "isArray": false,
+              "type": "ID",
+              "isRequired": true,
+              "attributes": []
+            },
+            "title": {
+              "name": "title",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true,
+              "attributes": []
+            },
+            "repo": {
+              "name": "repo",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true,
+              "attributes": []
+            },
+            "severity": {
+              "name": "severity",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true,
+              "attributes": []
+            },
+            "description": {
+              "name": "description",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true,
+              "attributes": []
+            },
+            "stepsToReproduce": {
+              "name": "stepsToReproduce",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "expectedBehavior": {
+              "name": "expectedBehavior",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "actualBehavior": {
+              "name": "actualBehavior",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "screenshotKeys": {
+              "name": "screenshotKeys",
+              "isArray": true,
+              "type": "String",
+              "isRequired": false,
+              "attributes": [],
+              "isArrayNullable": true
+            },
+            "githubIssueNumber": {
+              "name": "githubIssueNumber",
+              "isArray": false,
+              "type": "Int",
+              "isRequired": false,
+              "attributes": []
+            },
+            "githubIssueUrl": {
+              "name": "githubIssueUrl",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "reporterEmail": {
+              "name": "reporterEmail",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "createdAt": {
+              "name": "createdAt",
+              "isArray": false,
+              "type": "AWSDateTime",
+              "isRequired": false,
+              "attributes": [],
+              "isReadOnly": true
+            },
+            "updatedAt": {
+              "name": "updatedAt",
+              "isArray": false,
+              "type": "AWSDateTime",
+              "isRequired": false,
+              "attributes": [],
+              "isReadOnly": true
+            }
+          },
+          "syncable": true,
+          "pluralName": "Reports",
+          "attributes": [
+            {
+              "type": "model",
+              "properties": {}
+            },
+            {
+              "type": "auth",
+              "properties": {
+                "rules": [
+                  {
+                    "provider": "userPools",
+                    "ownerField": "owner",
+                    "allow": "owner",
+                    "operations": [
+                      "read"
+                    ],
+                    "identityClaim": "cognito:username"
+                  }
+                ]
+              }
+            }
+          ],
+          "primaryKeyInfo": {
+            "isCustomPrimaryKey": false,
+            "primaryKeyFieldName": "id",
+            "sortKeyFieldNames": []
+          }
+        }
+      },
+      "enums": {},
+      "nonModels": {
+        "TargetRepo": {
+          "name": "TargetRepo",
+          "fields": {
+            "fullName": {
+              "name": "fullName",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true,
+              "attributes": []
+            },
+            "name": {
+              "name": "name",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true,
+              "attributes": []
+            },
+            "description": {
+              "name": "description",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            }
+          }
+        },
+        "SubmitReportResult": {
+          "name": "SubmitReportResult",
+          "fields": {
+            "reportId": {
+              "name": "reportId",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true,
+              "attributes": []
+            },
+            "issueNumber": {
+              "name": "issueNumber",
+              "isArray": false,
+              "type": "Int",
+              "isRequired": true,
+              "attributes": []
+            },
+            "issueUrl": {
+              "name": "issueUrl",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true,
+              "attributes": []
+            },
+            "repo": {
+              "name": "repo",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true,
+              "attributes": []
+            }
+          }
+        }
+      },
+      "queries": {
+        "listTargetRepos": {
+          "name": "listTargetRepos",
+          "isArray": true,
+          "type": {
+            "nonModel": "TargetRepo"
+          },
+          "isRequired": false,
+          "isArrayNullable": true
+        }
+      },
+      "mutations": {
+        "submitReport": {
+          "name": "submitReport",
+          "isArray": false,
+          "type": {
+            "nonModel": "SubmitReportResult"
+          },
+          "isRequired": false,
+          "arguments": {
+            "title": {
+              "name": "title",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true
+            },
+            "repo": {
+              "name": "repo",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true
+            },
+            "severity": {
+              "name": "severity",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true
+            },
+            "description": {
+              "name": "description",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true
+            },
+            "stepsToReproduce": {
+              "name": "stepsToReproduce",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false
+            },
+            "expectedBehavior": {
+              "name": "expectedBehavior",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false
+            },
+            "actualBehavior": {
+              "name": "actualBehavior",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false
+            },
+            "screenshotKeys": {
+              "name": "screenshotKeys",
+              "isArray": true,
+              "type": "String",
+              "isRequired": false,
+              "isArrayNullable": true
+            }
+          }
+        }
+      }
+    }
+  },
+  "storage": {
+    "aws_region": "ap-southeast-1",
+    "bucket_name": "amplify-reportcoreservice-reportscreenshotsbucket1-suppwop4yrtt",
+    "buckets": [
+      {
+        "name": "reportScreenshots",
+        "bucket_name": "amplify-reportcoreservice-reportscreenshotsbucket1-suppwop4yrtt",
+        "aws_region": "ap-southeast-1",
+        "paths": {
+          "screenshots/${cognito-identity.amazonaws.com:sub}/*": {
+            "entityidentity": [
+              "get",
+              "list",
+              "write"
+            ]
+          },
+          "screenshots/*": {
+            "authenticated": [
+              "get",
+              "list"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "version": "1.4",
+  "custom": {
+    "screenshotCdnDomain": "d35goeyxova3hr.cloudfront.net"
+  }
+}

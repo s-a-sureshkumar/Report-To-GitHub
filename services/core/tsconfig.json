@@ -1,0 +1,12 @@
+{
+  "extends": "@report/style-guide/typescript-config/base.json",
+  "compilerOptions": {
+    "module": "es2022",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "paths": {
+      "$amplify/*": ["./.amplify/generated/*"]
+    }
+  },
+  "include": ["amplify/**/*.ts"]
+}

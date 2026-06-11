@@ -1,0 +1,29 @@
+{
+  "name": "report-to-github",
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "sandbox": "turbo run sandbox",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "check-types": "turbo run check-types"
+  },
+  "devDependencies": {
+    "@aws-amplify/backend-cli": "^1.8.2",
+    "esbuild": "^0.27.4",
+    "playwright": "^1.58.2",
+    "prettier": "^3.8.1",
+    "turbo": "^2.8.17",
+    "typescript": "5.9.3"
+  },
+  "packageManager": "pnpm@10.32.1",
+  "pnpm": {
+    "overrides": {
+      "@typescript/vfs": "1.6.4"
+    }
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

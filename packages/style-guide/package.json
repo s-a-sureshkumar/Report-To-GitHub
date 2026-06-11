@@ -1,0 +1,7 @@
+{
+  "name": "@report/style-guide",
+  "private": true,
+  "exports": {
+    "./typescript-config/*": "./typescript-config/*"
+  }
+}

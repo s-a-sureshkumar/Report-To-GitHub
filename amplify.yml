@@ -1,0 +1,44 @@
+# Two Amplify Hosting apps share this repo (same pattern as draughtsman):
+#   1. core   — appRoot services/core, backend-only deploy
+#   2. web    — appRoot apps/web, Next.js (WEB_COMPUTE); set the env var
+#               CORE_APP_ID on this app to the core app's Amplify app ID.
+version: 1
+applications:
+  - appRoot: services/core
+    backend:
+      phases:
+        build:
+          commands:
+            - corepack enable
+            - pnpm install --frozen-lockfile
+            - pnpm exec ampx pipeline-deploy --branch $AWS_BRANCH --app-id $AWS_APP_ID
+    frontend:
+      phases:
+        build:
+          commands:
+            - mkdir ./dist && touch ./dist/index.html
+      artifacts:
+        baseDirectory: dist
+        files:
+          - '**/*'
+  - appRoot: apps/web
+    backend:
+      phases:
+        build:
+          commands:
+            - corepack enable
+            - pnpm install --frozen-lockfile
+            - pnpm exec ampx generate outputs --branch $AWS_BRANCH --app-id $CORE_APP_ID --out-dir ../../services/core
+    frontend:
+      phases:
+        build:
+          commands:
+            - pnpm exec turbo run build --filter=web
+      artifacts:
+        baseDirectory: .next
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - .next/cache/**/*
+          - $(pnpm store path)

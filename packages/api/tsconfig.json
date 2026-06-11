@@ -1,0 +1,4 @@
+{
+  "extends": "@report/style-guide/typescript-config/nextjs.json",
+  "include": ["src/**/*.ts", "src/**/*.tsx"]
+}
