@@ -126,6 +126,16 @@ try {
 }
 await page.screenshot({ path: `${SCREEN_DIR}/04-my-reports.png`, fullPage: true })
 
+// 5. Report detail page shows the report and live GitHub status.
+try {
+  await page.click(`text=${title}`)
+  await page.waitForSelector('text=Updates from the team', { timeout: 30000 })
+  await page.waitForSelector('text=Open', { timeout: 30000 })
+} catch (error) {
+  await fail('report-detail', error)
+}
+await page.screenshot({ path: `${SCREEN_DIR}/05-detail.png`, fullPage: true })
+
 await browser.close()
 if (consoleErrors.length) console.error('Console errors (non-fatal):\n' + consoleErrors.join('\n'))
 console.log(JSON.stringify({ ok: true, issueNumber, title }))

@@ -10,6 +10,7 @@ import { S3BucketOrigin } from 'aws-cdk-lib/aws-cloudfront-origins'
 
 import { auth } from './auth/resource'
 import { data } from './data/resource'
+import { issueStatus } from './functions/issue-status/resource'
 import { listRepos } from './functions/list-repos/resource'
 import { submitReport } from './functions/submit-report/resource'
 import { storage } from './storage/resource'
@@ -20,6 +21,7 @@ const backend = defineBackend({
   storage,
   submitReport,
   listRepos,
+  issueStatus,
 })
 
 // The submit-report Lambda writes tracking rows straight into the

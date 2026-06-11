@@ -12,8 +12,16 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className="min-h-screen bg-zinc-50 text-zinc-900 antialiased">
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className="bg-surface-base text-content-primary antialiased"
+    >
+      <head>
+        <link rel="preconnect" href="https://rsms.me/" />
+        <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+      </head>
+      <body className="min-h-svh font-sans">
         <ConfigureAmplifyClientSide />
         <Providers>{children}</Providers>
       </body>

@@ -28,10 +28,14 @@
         "GOOGLE"
       ],
       "redirect_sign_in_uri": [
-        "http://localhost:3000/"
+        "http://localhost:3000/",
+        "https://main.d126o4v49tkgv8.amplifyapp.com/",
+        "https://issue.mintology.dev/"
       ],
       "redirect_sign_out_uri": [
-        "http://localhost:3000/"
+        "http://localhost:3000/",
+        "https://main.d126o4v49tkgv8.amplifyapp.com/",
+        "https://issue.mintology.dev/"
       ],
       "response_type": "code",
       "scopes": [
@@ -251,6 +255,129 @@
               "attributes": []
             }
           }
+        },
+        "IssueComment": {
+          "name": "IssueComment",
+          "fields": {
+            "author": {
+              "name": "author",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true,
+              "attributes": []
+            },
+            "body": {
+              "name": "body",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true,
+              "attributes": []
+            },
+            "createdAt": {
+              "name": "createdAt",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true,
+              "attributes": []
+            },
+            "isTeam": {
+              "name": "isTeam",
+              "isArray": false,
+              "type": "Boolean",
+              "isRequired": false,
+              "attributes": []
+            }
+          }
+        },
+        "IssueDetail": {
+          "name": "IssueDetail",
+          "fields": {
+            "repo": {
+              "name": "repo",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true,
+              "attributes": []
+            },
+            "issueNumber": {
+              "name": "issueNumber",
+              "isArray": false,
+              "type": "Int",
+              "isRequired": true,
+              "attributes": []
+            },
+            "state": {
+              "name": "state",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true,
+              "attributes": []
+            },
+            "stateReason": {
+              "name": "stateReason",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "closedAt": {
+              "name": "closedAt",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "commentCount": {
+              "name": "commentCount",
+              "isArray": false,
+              "type": "Int",
+              "isRequired": false,
+              "attributes": []
+            },
+            "comments": {
+              "name": "comments",
+              "isArray": true,
+              "type": {
+                "nonModel": "IssueComment"
+              },
+              "isRequired": false,
+              "attributes": [],
+              "isArrayNullable": true
+            }
+          }
+        },
+        "IssueStatus": {
+          "name": "IssueStatus",
+          "fields": {
+            "key": {
+              "name": "key",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true,
+              "attributes": []
+            },
+            "state": {
+              "name": "state",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true,
+              "attributes": []
+            },
+            "stateReason": {
+              "name": "stateReason",
+              "isArray": false,
+              "type": "String",
+              "isRequired": false,
+              "attributes": []
+            },
+            "commentCount": {
+              "name": "commentCount",
+              "isArray": false,
+              "type": "Int",
+              "isRequired": false,
+              "attributes": []
+            }
+          }
         }
       },
       "queries": {
@@ -262,6 +389,46 @@
           },
           "isRequired": false,
           "isArrayNullable": true
+        },
+        "getIssueDetail": {
+          "name": "getIssueDetail",
+          "isArray": false,
+          "type": {
+            "nonModel": "IssueDetail"
+          },
+          "isRequired": false,
+          "arguments": {
+            "repo": {
+              "name": "repo",
+              "isArray": false,
+              "type": "String",
+              "isRequired": true
+            },
+            "issueNumber": {
+              "name": "issueNumber",
+              "isArray": false,
+              "type": "Int",
+              "isRequired": true
+            }
+          }
+        },
+        "listIssueStatuses": {
+          "name": "listIssueStatuses",
+          "isArray": true,
+          "type": {
+            "nonModel": "IssueStatus"
+          },
+          "isRequired": false,
+          "isArrayNullable": true,
+          "arguments": {
+            "refs": {
+              "name": "refs",
+              "isArray": true,
+              "type": "String",
+              "isRequired": false,
+              "isArrayNullable": false
+            }
+          }
         }
       },
       "mutations": {

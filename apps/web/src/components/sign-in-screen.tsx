@@ -2,11 +2,15 @@
 
 import { useState } from 'react'
 
+import { BugAntIcon } from '@heroicons/react/20/solid'
+import { motion } from 'motion/react'
+
+import { Text } from '@/components/ui/text'
 import { useAuth } from '@/contexts/auth-context'
 
 function GoogleIcon() {
   return (
-    <svg className="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true">
+    <svg className="size-5" viewBox="0 0 24 24" aria-hidden="true">
       <path
         d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1Z"
         fill="#4285F4"
@@ -32,26 +36,38 @@ export function SignInScreen() {
   const [error, setError] = useState<string | null>(null)
 
   return (
-    <main className="flex min-h-screen items-center justify-center p-6">
-      <div className="w-full max-w-sm rounded-2xl border border-zinc-200 bg-white p-8 shadow-sm">
-        <h1 className="text-xl font-semibold">Mintable Bug Reports</h1>
-        <p className="mt-2 text-sm text-zinc-500">
-          Report bugs and issues to the development team. Sign in with your{' '}
-          <span className="font-medium text-zinc-700">@mintable.com</span> Google account.
-        </p>
+    <main className="flex min-h-svh items-center justify-center bg-surface-raised p-6">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        className="w-full max-w-sm rounded-2xl border border-border-subtle bg-surface-base p-8 shadow-sm"
+      >
+        <span className="flex size-12 items-center justify-center rounded-xl bg-primary-600 shadow-sm">
+          <BugAntIcon className="size-6 text-white" />
+        </span>
+        <h1 className="mt-5 text-xl font-semibold tracking-tight text-content-primary">
+          Mintable Bug Reports
+        </h1>
+        <Text className="mt-2">
+          Report bugs and issues straight to the development team. Sign in with your{' '}
+          <span className="font-medium text-content-secondary">@mintable.com</span> Google account.
+        </Text>
         <button
           type="button"
           onClick={() => {
             setError(null)
             signInWithGoogle().catch(() => setError('Sign-in failed. Please try again.'))
           }}
-          className="mt-6 flex w-full items-center justify-center gap-3 rounded-lg border border-zinc-300 bg-white px-4 py-2.5 text-sm font-medium text-zinc-700 transition hover:bg-zinc-50"
+          className="mt-6 flex w-full items-center justify-center gap-3 rounded-lg border border-border bg-surface-base px-4 py-2.5 text-sm font-semibold text-content-primary shadow-sm transition hover:bg-surface-raised"
         >
           <GoogleIcon />
           Continue with Google
         </button>
-        {error ? <p className="mt-4 text-sm text-red-600">{error}</p> : null}
-      </div>
+        {error ? (
+          <p className="mt-4 text-sm text-danger-500 dark:text-danger-300">{error}</p>
+        ) : null}
+      </motion.div>
     </main>
   )
 }
