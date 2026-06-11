@@ -28,7 +28,18 @@ applications:
           commands:
             - corepack enable
             - pnpm install --frozen-lockfile
-            - pnpm exec ampx generate outputs --branch $AWS_BRANCH --app-id $CORE_APP_ID --out-dir ./services/core
+            # Core may be mid-deploy when a push triggers both apps; wait it
+            # out instead of failing (DeploymentInProgressError), and fail
+            # hard if outputs never arrive so the build can't silently ship
+            # the committed sandbox outputs.
+            - |
+              ok=0
+              for i in $(seq 1 15); do
+                if pnpm exec ampx generate outputs --branch $AWS_BRANCH --app-id $CORE_APP_ID --out-dir ./services/core; then ok=1; break; fi
+                echo "core branch deployment in progress (attempt $i/15); retrying in 60s"
+                sleep 60
+              done
+              [ "$ok" = "1" ]
     frontend:
       phases:
         build:
